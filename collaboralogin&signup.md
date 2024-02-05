@@ -53,7 +53,7 @@ permalink: /login
           .then(response => {
             if (response.ok) {
                 console.log("User logged in successfully");
-                window.location.href = "http://127.0.0.1:4200/student/postlogin"
+                window.location.href = "http://127.0.0.1:4200/cbora/postlogin"
               } else {
                 console.error("User login failed");
                 // You can handle failed login attempts here
@@ -92,7 +92,7 @@ permalink: /login
     </p>
     <p>
      <button class="button-spacing">Log In</button>
-          <button onClick = "window.location.href ='http://127.0.0.1:4200/student/signup'" class="button-spacing" >Sign Up</button>
+          <button onClick = "window.location.href ='http://127.0.0.1:4200/cbora/signup'" class="button-spacing" >Sign Up</button>
 
       
     </p>
