@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Student Blog
+title: COLLABORA
 ---
 
 SCRUM MASTER: **Drishya Mody**

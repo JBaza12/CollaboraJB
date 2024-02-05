@@ -63,7 +63,7 @@ permalink: /signup
             if (response.ok) {
                 console.log("Successfully Signed Up");
                 alert("Account has been created. You will be directed to login page shortly.");
-                window.location.href = "{{ site.baseurl }}/collabora"
+                window.location.href = "{{ site.baseurl }}/login"
               } else {
                 console.error("Sign Up Failed");
                 // You can handle failed login attempts here
