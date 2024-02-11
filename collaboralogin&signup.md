@@ -78,6 +78,16 @@ permalink: /login
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
   <link rel="stylesheet" href="styles.css"> <!-- Include the compiled CSS file -->
+  <style>
+        body {
+            text-align: center;
+        }
+
+        .container {
+            display: inline-block;
+            text-align: left; /* Reset text-align for the form */
+        }
+  </style>
 </head>
 
 <body>
