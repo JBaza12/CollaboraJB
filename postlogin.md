@@ -150,7 +150,7 @@ permalink: /postlogin
     <input type="text" id="ask-question-input" placeholder="Enter your question here">
 </div>
 <button>           </button> 
-<button id="my-button" style="background-color: #c5000c; color: white;">Search</button>
+<button id="my-button" style="background-color: #c5000c; color: white;">Submit</button>
 
 </body>
 </html>
