@@ -37,6 +37,8 @@ permalink: /postlogin
 <div id="search-container">
     <input type="text" id="search-input" placeholder="Search a topic">
     <ul id="search-results"></ul>
+    <button id="my-button" style="background-color: #c5000c; color: white;">Search</button>
+
 </div>
 
 
@@ -147,6 +149,8 @@ permalink: /postlogin
     <span>Want to ask a question?</span><br>
     <input type="text" id="ask-question-input" placeholder="Enter your question here">
 </div>
+<button>           </button> 
+<button id="my-button" style="background-color: #c5000c; color: white;">Search</button>
 
 </body>
 </html>
