@@ -102,6 +102,7 @@ permalink: /signup
 
 <body>
     <div class="container">
+    <div id="errorMessage"></div>
     <form action="javascript:signUp_user()">
     <p><label for="Name">First Name:</label>
      <input type="text" id="name" placeholder="Your First Name" />
