@@ -146,6 +146,8 @@ function getTodaysDate() {
 
     return formattedToday;
 }
+const formattedToday = getTodaysDate();
+document.getElementById('post-date').innerHTML = "Posted on: " + formattedToday;
 
 function createPost() {
     const enteredPost = document.getElementById("ask-question-input").value;
@@ -194,6 +196,12 @@ function post_api(id, post, uid, doq) {
    
 }
 
+const enteredName = localStorage.getItem("enteredName");
+const enteredUid = localStorage.getItem("enteredUid");
+
+        // Update HTML with stored data
+document.getElementById("name-span").textContent = enteredName;
+document.getElementById("uid-span").textContent = enteredUid;
   
 </script>
 </head>
@@ -203,10 +211,10 @@ function post_api(id, post, uid, doq) {
 
 <div class="question-box">
     <div class="user-info">
-        <span>Name: </span><span id="user-name">John Doe</span><br>
-        <span>Username: </span><span id="username">johndoe123</span>
+        <span>Name: </span><span id="name-span"></span><br>
+        <span>Username: </span><span id="uid-span"></span>
     </div>
-    <div class="date" id="post-date">Posted on: January 1, 2024</div>
+<div class="date" id="post-date"></div>
 </div>
 <div id="errorMessage"></div>
 <form action="javascript:createPost()">
