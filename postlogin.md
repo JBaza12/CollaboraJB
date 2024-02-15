@@ -74,27 +74,67 @@ permalink: /postlogin
  </style>
 
 <script>
-function topicSearch(){
+function createTableFromJSON(jsonData) {
+    // Create a table
+    var table = document.createElement("table");
+    var tr = table.insertRow(-1); // Table Row
+
+    // Add table headers
+    var headers = ["Questions"];
+    for(var i = 0; i < headers.length; i++) {
+        var th = document.createElement("th"); // Table Header
+        th.innerHTML = headers[i];
+        tr.appendChild(th);
+    }
+
+    // Add JSON data to the table as rows
+    for(var i = 0; i < jsonData.length; i++) {
+        tr = table.insertRow(-1);
+        for(var j = 0; j < headers.length; j++) {
+            var tabCell = tr.insertCell(-1);
+            tabCell.innerHTML = "<a href='question?questionId="+jsonData[i]['id']+"'>"+jsonData[i]['note']+"</a>";
+        }
+    }
+
+    // Finally, add the newly created table with JSON data to a container
+    var divContainer = document.getElementById("tableContainer");
+    divContainer.innerHTML = "";
+    divContainer.appendChild(table);
+}
+
+function topicSearch() {
     const enteredTopic = document.getElementById("search-input").value;
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     
     var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow'
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
     };
-        fetch("http://127.0.0.1:8091/api/post?searchedString=" + enteredTopic, requestOptions)
-             .then(response => {
+
+    fetch("http://127.0.0.1:8091/api/post/?searchString=" + enteredTopic, requestOptions)
+        .then(response => {
             if (response.ok) {
                 console.log(enteredTopic + " has been searched");
-              } else {
+                return response.json(); // Parse the JSON in the response body
+            } else {
                 console.error("Search failed");
                 const errorMessageDiv = document.getElementById('errorMessage');
                 errorMessageDiv.innerHTML = '<label style="color: red;">Search Failed</label>';
-              }
-          })
+                throw new Error('Search failed');
+            }
+        })
+        .then(data => {
+            // Here 'data' is the parsed JSON object from the response body
+            console.log(data); // You can see your fetched data here
+            createTableFromJSON(data); // Assuming 'createTableFromJSON' expects the JSON data as parameter
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the fetch() or in the promise chain
+            console.error('Error:', error);
+        });
 }
 
 function getTodaysDate() {
@@ -181,13 +221,16 @@ function post_api(id, post, uid, doq) {
 <div class="date" id="post-date"></div>
 </div>
 <form action="javascript:topicSearch()">
-    <div id="search-input">
+    <div id="search">
         <span>Search for a question?</span><br>
         <input type="text" id="search-input" placeholder="Search a topic">
     </div>
     <button id="search-button" style="background-color: #c5000c; color: white;">Search</button>
 </form>
 <div id="errorMessage"></div>
+
+<div id="tableContainer"></div>
+
 <form action="javascript:createPost()">
 <div id="ask-question-box">
     <span>Want to ask a question?</span><br>
