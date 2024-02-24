@@ -82,7 +82,7 @@ permalink: /question
             body: raw,
             redirect: 'follow'
             };
-              fetch("http://127.0.0.1:8091/api/post/", requestOptions)
+              fetch("http://127.0.0.1:8086/api/post/", requestOptions)
                 .then(response => {
                     if (response.ok) {
                         console.log("Reply Received");
@@ -100,7 +100,7 @@ permalink: /question
     
     async function fetchQuestion(questionId) {
         try {
-            const response = await fetch(`http://127.0.0.1:8091/api/post?id=${questionId}`);
+            const response = await fetch(`http://127.0.0.1:8086/api/post?id=${questionId}`);
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }
@@ -115,7 +115,7 @@ permalink: /question
     async function fetchAndDisplayComments(questionId) {
         const commentsContainer = document.getElementById('comments-container');
         try {
-            const response = await fetch(`http://127.0.0.1:8091/api/post?parentPostId=${questionId}`);
+            const response = await fetch(`http://127.0.0.1:8086/api/post?parentPostId=${questionId}`);
             if (!response.ok) {
                 throw new Error(`Error: ${response.statusText}`);
             }

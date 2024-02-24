@@ -1,77 +1,109 @@
----
-layout: post
-type: hacks
-permalink: /postlogin
----
- <span style="font-size:4em;">Welcome to Collabora</span>
-
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Details</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
 
+        .container {
+            width: 80%; /* Adjust the width as needed */
+            max-width: 600px; /* Set a max-width for larger screens */
+            margin: auto;
+        }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question Details</title>
-<style>
+        #search-input, #ask-question-input {
+            width: 100%; /* Make the input take the full width of its parent */
+            padding: 8px;
+            font-size: 16px;
+            box-sizing: border-box; /* Include padding in the width calculation */
+            margin-bottom: 10px; /* Adds some space below the input */
+        }
 
-    #search-container {
-        margin-bottom: 20px;
-    }
+        #search-button, #submit-button {
+            width: 100%; /* Align the button width with the input */
+            background-color: #c5000c;
+            color: white;
+            padding: 10px 0; /* Adjust padding as needed */
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px; /* Adds some space below the button */
+        }
 
-    #search-input {
-        width: 300px;
-        padding: 8px;
-        font-size: 16px;
-    }
+        #search-results, #tableContainer {
+            list-style-type: none;
+            padding: 0;
+        }
 
-    #search-results {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    #search-results li {
-        margin-bottom: 5px;
-    }
-</style>
-
- <style>
-        .question-box {
+        .question-box, #ask-question-box {
             border: 1px solid #ccc;
             padding: 20px;
-            margin-bottom: 20px;
             border-radius: 5px;
+            text-align: left; /* Aligns text to the left inside the centered container */
         }
-        .user-info {
-            font-weight: bold;
+
+        .question-box .user-info, .date {
             margin-bottom: 10px;
         }
+
         .date {
             color: #666;
             font-size: 14px;
         }
-        #search-container {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-             padding: 20px;
+
+        /* This is for the "Want to ask a question?" text */
+        .ask-question-label {
+            text-align: center; /* Center the label text */
+            display: block; /* Make the label a block element to take full width */
+            margin-bottom: 5px; /* Space before the input box */
         }
-        #ask-question-box {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
+
+        /* Login and Sign Up links */
+        .auth-links {
+            text-align: right; /* Aligns the links to the right */
+            padding: 10px 20px; /* Padding to position the links */
+            background: none;
         }
-        #ask-question-box {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
-        }
-        #ask-question-input {
-            width: 20%; /* Set input width to 100% */
-            height: 100px; /* Set input height to 100 pixels */
-            padding: 8px;
-            margin-top: 10px;
-            box-sizing: border-box;
-        }
- </style>
+    </style>
+</head>
+<body>
+
+
+
+<div class="container">
+    <span style="font-size:4em;">Welcome to Collabora</span>
+
+    <div class="question-box">
+        <div class="user-info">
+            <span>Name: </span><span id="name-span"></span><br>
+            <span>Username: </span><span id="uid-span"></span>
+        </div>
+        <div class="date" id="post-date"></div>
+    </div>
+
+    <form action="javascript:topicSearch()">
+        <div id="search">
+            <span>Search for a question?</span><br>
+            <input type="text" id="search-input" placeholder="Search a topic">
+            <button id="search-button">Search</button>
+        </div>
+    </form>
+    <div id="errorMessage"></div>
+    <div id="tableContainer"></div>
+
+    <form action="javascript:createPost()">
+        <label for="ask-question-input" class="ask-question-label">Want to ask a question?</label>
+        <input type="text" id="ask-question-input" placeholder="Enter your question here">
+        <button id="submit-button">Submit</button>
+    </form>
+</div>
 
 <script>
 function createTableFromJSON(jsonData) {
@@ -114,7 +146,7 @@ function topicSearch() {
         redirect: 'follow'
     };
 
-    fetch("http://127.0.0.1:8091/api/post/?searchString=" + enteredTopic, requestOptions)
+    fetch("http://127.0.0.1:8086/api/post/?searchString=" + enteredTopic, requestOptions)
         .then(response => {
             if (response.ok) {
                 console.log(enteredTopic + " has been searched");
@@ -180,7 +212,7 @@ function post_api(id, post, uid, doq) {
     redirect: 'follow'
     };
 
-    fetch("http://127.0.0.1:8091/api/post/", requestOptions)
+    fetch("http://127.0.0.1:8086/api/post/", requestOptions)
         .then(response => {
             if (response.ok) {
                 console.log("Question Received");
@@ -206,38 +238,7 @@ function post_api(id, post, uid, doq) {
         // Update HTML with stored data
 //document.getElementById("name-span").textContent = enteredName;
 //document.getElementById("uid-span").textContent = enteredUid;
-  
 </script>
-</head>
-<body>
 
-
-
-<div class="question-box">
-    <div class="user-info">
-        <span>Name: </span><span id="name-span"></span><br>
-        <span>Username: </span><span id="uid-span"></span>
-    </div>
-<div class="date" id="post-date"></div>
-</div>
-<form action="javascript:topicSearch()">
-    <div id="search">
-        <span>Search for a question?</span><br>
-        <input type="text" id="search-input" placeholder="Search a topic">
-    </div>
-    <button id="search-button" style="background-color: #c5000c; color: white;">Search</button>
-</form>
-<div id="errorMessage"></div>
-
-<div id="tableContainer"></div>
-
-<form action="javascript:createPost()">
-<div id="ask-question-box">
-    <span>Want to ask a question?</span><br>
-
-    <input type="text" id="ask-question-input" placeholder="Enter your question here">
-</div>
-<button id="submit-button" style="background-color: #c5000c; color: white;">Submit</button>
-</form>
 </body>
 </html>
