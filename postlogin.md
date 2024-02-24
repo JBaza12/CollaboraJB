@@ -81,7 +81,7 @@
 
         /* This is for the "Want to ask a question?" text */
         .ask-question-label {
-            text-align: center; /* Center the label text */
+            text-align: left; /* Center the label text */
             display: block; /* Make the label a block element to take full width */
             margin-bottom: 5px; /* Space before the input box */
         }
