@@ -111,13 +111,13 @@
 <div class="container">
     <span style="font-size:3em;">Welcome to Collabora</span>
 
-    <div class="question-box">
+    <!-- <div class="question-box">
         <div class="user-info">
             <span>Name: </span><span id="name-span"></span><br>
             <span>Username: </span><span id="uid-span"></span>
         </div>
         <div class="date" id="post-date"></div>
-    </div>
+    </div> -->
 
     <form action="javascript:topicSearch()">
         <div id="search">
