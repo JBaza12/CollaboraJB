@@ -12,6 +12,27 @@
             flex-direction: column;
             font-family: Arial, sans-serif;
         }
+        
+                .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .header-right a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
 
         .container {
             width: 80%; /* Adjust the width as needed */
@@ -75,10 +96,20 @@
 </head>
 <body>
 
-
+<div class="header">
+    <div class="header-left">
+        CompSci Blogs
+        <br>
+        August 2023 to June 2024
+    </div>
+    <div class="header-right">
+        <a href="/CollaboraDJAK/login">Log In</a>  <a href="/CollaboraDJAK/signup">Sign Up</a>
+        <a href="/CollaboraDJAK/profile" class="profile-button">View your Profile</a>
+    </div>
+</div>
 
 <div class="container">
-    <span style="font-size:4em;">Welcome to Collabora</span>
+    <span style="font-size:3em;">Welcome to Collabora</span>
 
     <div class="question-box">
         <div class="user-info">

@@ -3,14 +3,6 @@ layout: default
 title: COLLABORA
 ---
 
-SCRUM MASTER: **Drishya Mody**
-
-FRONTEND: **Aidan Delgado**
-
-BACKEND: **Jared Baza**
-
-DEVOPS: **Kaiyu Sugiyama**
-
 <head>
     <meta charset="UTF-8">
     {% seo %}
@@ -28,6 +20,47 @@ DEVOPS: **Kaiyu Sugiyama**
             display: inline-block;
             text-align: left; /* Reset text-align for the content inside the container */
         }
-    </style>
-</head>
+                .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
+        .header-left {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .header-right a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+    </style>
+<body>
+<div class="header">
+    <div class="header-left">
+        CompSci Blogs
+        <br>
+        August 2023 to June 2024
+    </div>
+    <div class="header-right">
+        <a href="/CollaboraDJAK/login">Log In</a>  <a href="/CollaboraDJAK/signup">Sign Up</a>
+        <a href="/CollaboraDJAK/profile" class="profile-button">View your Profile</a>
+    </div>
+</div>
+</body>
+
+</head>
+SCRUM MASTER: **Drishya Mody**
+
+FRONTEND: **Aidan Delgado**
+
+BACKEND: **Jared Baza**
+
+DEVOPS: **Kaiyu Sugiyama**
