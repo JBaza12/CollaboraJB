@@ -69,11 +69,12 @@ permalink: /question
 
         const questionId = new URLSearchParams(window.location.search).get('questionId');
         const replyText = document.getElementById('answer-question-input').value;
+        const uid = localStorage.getItem("userUid") || "defaultUid"; // Use a default UID or handle this case as needed
 
         var raw = JSON.stringify({
             "parentPostId": questionId,
             "note": replyText,
-            "uid": "toby"
+            "uid": uid
             });
 
         var requestOptions = {
@@ -96,7 +97,7 @@ permalink: /question
                         errorMessageDiv.innerHTML = '<label style="color: red;">Reply Failed</label>';
                     }
                 })
-    }
+     }
     
     async function fetchQuestion(questionId) {
         try {
@@ -121,21 +122,28 @@ permalink: /question
             }
             const comments = await response.json();
             if (comments.length > 0) {
-                const commentsHTML = comments.map(comment => `
-                    <div class="comment">
-                        <p>${comment.note}</p>
-                        <small>By: ${comment.userID}</small>
-                    </div>
-                `).join('');
-                commentsContainer.innerHTML += commentsHTML;
+                const loggedInUid = localStorage.getItem("userUid"); // Get the UID of the logged-in user
+                const commentsHTML = comments.map(comment => {
+                    // Check if the comment UID matches the logged-in UID and set the display name accordingly
+                    const commenterUid = comment.userID === loggedInUid ? "You" : comment.userID;
+                    return `
+                        <div class="comment">
+                            <p>${comment.note}</p>
+                            <small>By: ${commenterUid}</small>
+                        </div>
+                    `;
+                }).join('');
+                commentsContainer.innerHTML = commentsHTML;
             } else {
-                commentsContainer.innerHTML += '<p>No comments found.</p>';
+                commentsContainer.innerHTML = '<p>No comments found.</p>';
             }
         } catch (error) {
             console.error('Fetching comments failed:', error);
-            commentsContainer.innerHTML += '<p>Error fetching comments.</p>';
+            commentsContainer.innerHTML = '<p>Error fetching comments.</p>';
         }
     }
+
+
 
     async function displayQuestion() {
         // Extracting questionId from URL parameters

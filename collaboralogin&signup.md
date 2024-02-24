@@ -34,7 +34,7 @@ permalink: /login
       myHeaders.append("Accept", "*/*");
       myHeaders.append("Accept-Language", "en-US,en;q=0.9");
       myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Cookie", "jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfdWlkIjoidG9ueSJ9.jEShka0oXI1-uCuSTfo3ed5WRw3ASLNV0Tpn1kc5GB0");
+      <!-- myHeaders.append("Cookie", "jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfdWlkIjoidG9ueSJ9.jEShka0oXI1-uCuSTfo3ed5WRw3ASLNV0Tpn1kc5GB0"); -->
 
 
       var raw = JSON.stringify({
@@ -53,6 +53,7 @@ permalink: /login
           .then(response => {
             if (response.ok) {
                 console.log("User logged in successfully");
+                localStorage.setItem("userUid", uid);
                 window.location.href = "{{ site.baseurl }}/postlogin"
               } else {
                 console.error("User login failed");
@@ -108,7 +109,6 @@ permalink: /login
     </p>
   </form>
 
-  <!-- Your JavaScript code -->
   
 </body>
 

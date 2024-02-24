@@ -219,7 +219,7 @@ const formattedToday = getTodaysDate();
 function createPost() {
     const enteredPost = document.getElementById("ask-question-input").value;
     const enteredDOQ = getTodaysDate()
-    const enteredUid = "toby" //to be set dynamically (figure out later)
+    const enteredUid = localStorage.getItem("userUid") || "defaultUid"; // Use a default or handle case where uid is not set
     const enteredId = "10" //to be set dynamically (figure out later)
     post_api(enteredId, enteredPost, enteredUid, enteredDOQ)
 
