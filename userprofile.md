@@ -20,6 +20,27 @@ permalink: /profile
             min-height: 100vh;
             background-color: #f5f5f5;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .header-right a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
         .container {
             background-color: #fff;
             padding: 20px;
@@ -28,6 +49,7 @@ permalink: /profile
             width: 80%;
             max-width: 400px;
             text-align: center;
+            margin-top: 20px; 
         }
         form {
             display: flex;
@@ -57,6 +79,16 @@ permalink: /profile
     </style>
 </head>
 <body>
+<div class="header">
+    <div class="header-left">
+        CompSci Blogs
+        <br>
+        August 2023 to June 2024
+    </div>
+    <div class="header-right">
+        <a href="/CollaboraDJAK/postlogin" class="homePage">Home</a>
+    </div>
+</div>
     <div class="container">
         <!-- <div id="profile-info">
             <p>Name: <span id="userName"></span></p>
@@ -70,10 +102,12 @@ permalink: /profile
             <label for="uid">Username:</label>
             <input type="text" id="uid" name="username"><br>
             <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob"><br>  
+            <input type="text" id="dob" name="dob"><br>  
             <button>Update Profile</button>
         </form>
+<form action="javascript:deleteUserProfile()">
 <button id="deleteUser">Delete Account</button>
+</form>
     </div>
 
 <script>
@@ -113,7 +147,7 @@ permalink: /profile
         .then(data => {
             console.log(data); // You can see your fetched data here
             intId = data.id
-            const dob = data.dob
+            const dob = new Date(data.dob).toISOString().split('T')[0];
             const username = data.uid
             const firstName = data.name
             // const intId = data.id
@@ -127,6 +161,72 @@ permalink: /profile
             console.error('Error:', error);
         });
     }
+    function updateUserProfile() {
+
+        const updatedName = document.getElementById("name").value;
+        const updatedDob = document.getElementById("dob").value;
+        const updatedUsername = document.getElementById("uid").value;
+
+            fetch('http://127.0.0.1:8086/api/users/' + intId, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            name: updatedName, 
+            dob: updatedDob, 
+            uid: updatedUsername 
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();  // If you have a JSON response, parse it
+        } else {
+            throw new Error('Update failed with status: ' + response.status);
+        }
+    })
+    .then(updatedUser => {
+        alert("User info successfully updated");
+        console.log('User updated:', updatedUser);
+        // Optionally, you can reload data or update the UI as needed
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error updating user: " + error.message);
+    });
+}
+     function deleteUser() {
+        // Make sure intId is available
+        // if (!intId) {
+        //     console.error("User ID is not available. Cannot delete user.");
+        //     return;
+        // }
+
+        // Call the deleteUserProfile function to perform the deletion
+        deleteUserProfile();
+    }
+
+    // Define the deleteUserProfile function to handle the actual deletion process
+    function deleteUserProfile() {
+        fetch('http://127.0.0.1:8086/api/users/' + intId, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('User deleted:', intId);
+                alert("User deleted successfully.");
+                window.location.href = "/CollaboraDJAK/signup";
+            } else {
+                return response.json().then(error => {
+                    throw new Error(error.message || "Failed to delete the user.");
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("Error deleting user" + error.message);
+        });
+    }
+
     
     
         window.onload = dataGet;
