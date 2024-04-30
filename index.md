@@ -51,6 +51,8 @@ title: COLLABORA
     </div>
     <div class="header-right">
         <a href="/CollaboraDJAK/login">Log In</a>  <a href="/CollaboraDJAK/signup">Sign Up</a>
+        <a href="/CollaboraDJAK/pcquiz">Prostate Cancer Quiz</a>
+        <a href="/CollaboraDJAK/todo">Task Manager</a>
         <a href="/CollaboraDJAK/profile" class="profile-button">View your Profile</a>
     </div>
 </div>
